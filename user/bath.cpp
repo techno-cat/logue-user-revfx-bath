@@ -201,12 +201,12 @@ void REVFX_PROCESS(float *xn, uint32_t frames)
 
     int64_t outMtap = (sumZDelay * depth) >> 12;
     int64_t inAp1 = outMtap + (((int64_t)zAp1 * ap1->gain) >> 16);
-    int64_t outAp1 = outMtap - ((inAp1 * ap1->gain) >> 16);
+    int64_t outAp1 = (int64_t)zAp1 - ((inAp1 * ap1->gain) >> 16);
     ap1->pointer = LCW_DELAY_BUFFER_DEC(ap1);
     ap1->buffer[ap1->pointer] = (int32_t)inAp1;
 
     int64_t inAp2 = outAp1 + (((int64_t)zAp2 * ap2->gain) >> 16);
-    int64_t outAp2 = outAp1 - ((inAp2 * ap2->gain) >> 16);
+    int64_t outAp2 = (int64_t)zAp2 - ((inAp2 * ap2->gain) >> 16);
     ap2->pointer = LCW_DELAY_BUFFER_DEC(ap2);
     ap2->buffer[ap2->pointer] = (int32_t)inAp2;
 
