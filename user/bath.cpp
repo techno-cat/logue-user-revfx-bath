@@ -8,7 +8,7 @@ This software is released under the MIT License, see LICENSE.txt.
 #include "LCWCommon.h"
 
 #define LCW_DELAY_BUFFER_DEC(p) ( ((p)->pointer - 1) & (p)->mask )
-#define LCW_DELAY_BUFFER_LUT(p, i) ( (p)->buffer[(p)->pointer + (i) & (p)->mask] )
+#define LCW_DELAY_BUFFER_LUT(p, i) ( (p)->buffer[((p)->pointer + (i)) & (p)->mask] )
 
 typedef struct {
     int32_t *buffer;
