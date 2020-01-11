@@ -199,8 +199,8 @@ void REVFX_PROCESS(float *xn, uint32_t frames)
         inL + (int32_t)( ((int64_t)zDelay[j] * delay[j].gain) >> 12 );
     }
 
-    int64_t outMtap = (sumZDelay * depth) >> 12;
-    int64_t inAp1 = outMtap + (((int64_t)zAp1 * ap1->gain) >> 16);
+    int64_t outDelay = (sumZDelay * depth) >> 12;
+    int64_t inAp1 = outDelay + (((int64_t)zAp1 * ap1->gain) >> 16);
     int64_t outAp1 = (int64_t)zAp1 - ((inAp1 * ap1->gain) >> 16);
     ap1->pointer = LCW_DELAY_BUFFER_DEC(ap1);
     ap1->buffer[ap1->pointer] = (int32_t)inAp1;
@@ -227,7 +227,7 @@ void REVFX_RESUME(void)
 {
   buf_clr_u32(
     (uint32_t * __restrict__)s_reverb_ram_delay,
-    LCW_REVERB_DELAY_SIZE * LCW_REVERB_DELAY_PIPE_COUNT );
+    LCW_REVERB_DELAY_SIZE_TOTAL );
   buf_clr_u32(
     (uint32_t * __restrict__)s_reverb_ram_ap1,
     LCW_REVERB_AP1_SIZE );
