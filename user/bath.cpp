@@ -136,16 +136,6 @@ __fast_inline int32_t lut_with_lpf(LCWDelayBuffer *p, int32_t i)
 #else
   return LCW_DELAY_BUFFER_LUT(p, i);
 #endif
-//   int32_t j = i - (FIR_TAP >> 1);
-//   int64_t sum = 0;
-//   for (int32_t k=0; k<FIR_TAP; k++) {
-//     sum += ...
-//   }
-
-//   return sum >> foo;
-// #define LCW_DELAY_BUFFER_LUT(p, i) ( (p)->buffer[((p)->pointer + (i)) & (p)->mask] )
-
-  
 }
 
 void REVFX_INIT(uint32_t platform, uint32_t api)
