@@ -1,5 +1,5 @@
 # bath
-Reverb like in the bathroom,  
+Reverb like in the **very large** bathroom,  
 can use as `USER REVERB FX`.
 
 # Parameters
