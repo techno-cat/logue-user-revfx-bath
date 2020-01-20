@@ -20,25 +20,32 @@ while ( $num != $prime[-1] ) {
 
 {
     my $fs = 48_000;
-    my $param = 8;
+    my $param = 30;
     my $n = ($param / 340) * $fs; # 音速: 340m/s
     
     my $delay0 = bigger_number(int($n), \@prime);
-    my $delay1 = bigger_number(int($delay0 * 17/13), \@prime);
-    my $delay2 = bigger_number(int($delay0 * 19/13), \@prime);
-    my $delay3 = bigger_number(int($delay0 * 23/13), \@prime);
+    my @delay_samples = map {
+        bigger_number(int($delay0 * $_), \@prime);
+    } ( 97/67, 71/67, 41/67, 71/101, 61/101, 37/101 );
 
-    printf("%4d, %4d, %4d, %4d\n",
-        $delay0, $delay1, $delay2, $delay3);
+    say join( ', ', map sprintf("%4d", $_), @delay_samples );
+    say join( ', ', map {
+        my $posi = bigger_number(int($delay0 * $_), \@prime);
+        sprintf("%4d", $posi);
+    } (13/101, 23/101, 37/101) );
 
     for my $i ( 1..64 ) {
         my $t = $i / 64;
-        my $time_sec = 2 ** (-1.0 + (4.0 * $t));
+        my $time_sec = 2 ** (-1.0 + (5.0 * $t));
         my $samples = int($fs * $time_sec);
 
         my @times_list = map {
             $samples / $_;
-        } ( $delay0, $delay1, $delay2, $delay3 );
+        } @delay_samples;
+
+        # @gain_list[0..1] = map {
+        #     2 ** (log2(0.001) / ($_ / 4));
+        # } @times_list[0..1];
 
         printf("  { %s }, // [%2d] %.3f\n",
             join(', ', map {
